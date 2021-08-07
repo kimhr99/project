@@ -37,7 +37,6 @@
   <body>
 
 <%
-
 	request.setCharacterEncoding("UTF-8");
 
 	String contentDivide = "전체";
@@ -166,7 +165,6 @@
 %>
 
               <a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
-             
 
 <%
 	}
@@ -175,17 +173,10 @@
             </div>
 
           </li>
-          
-          <li class="nav-item active">
-
-            <a class="nav-link" href="hotLike.jsp">핫게시물</a>
-
-          </li>
-
+			
         </ul>
         
-  
-        <form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
+         <form action="./hotLike.jsp" method="get" class="form-inline my-2 my-lg-0">
 
           <input type="text" name="search" class="form-control mr-sm-2" placeholder="내용을 입력하세요.">
 
@@ -194,12 +185,12 @@
         </form>
 
       </div>
-
+		
     </nav>
-
+<label> 핫게시물로 선정된 글입니다!</label>
     <div class="container">
 
-      <form method="get" action="./index.jsp" class="form-inline mt-3">
+  <form method="get" action="./hotLike.jsp" class="form-inline mt-3">
 
         <select name="contentDivide" class="form-control mx-1 mt-2">
 
@@ -227,16 +218,10 @@
 
         <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
         
-      
-     
-        <a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
-        
-    
-        
       	<a class="btn btn-danger ml-1 mt-2" data-toggle="modal" href="#reportModal">신고</a>
 
       </form>
-
+  
 <%
 	ArrayList<ContentDTO> contentList = new ArrayList<ContentDTO>();
 
@@ -249,6 +234,8 @@
 		if(i == 5) break;
 
 		ContentDTO content = contentList.get(i);
+		
+		if(content.getLikeCount() > 2){
 		
 %>	
 
@@ -280,28 +267,20 @@
             <div class="col-9 text-left">
 
              <span style="color: green;">(추천: <%=content.getLikeCount()%>)</span>
-             
-             <a onclick="return confirm('댓글을 다시겠습니까?')" href="./comment.jsp">댓글</a>
               
             </div>
 
             <div class="col-3 text-right">
 
-              <a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?contentID=<%=content.getcontentID()%>">추천</a>
+              <a onclick="return confirm('추천하시겠습니까?')" href="./likeAction.jsp?evaluationID=<%=content.getcontentID()%>">추천</a>
 
-			  <a onclick="return confirm('비추천하시겠습니까?')" href="./hateAction.jsp?contentID=<%=content.getcontentID()%>">비추천</a>
+			  <a onclick="return confirm('비추천하시겠습니까?')" href="./hateAction.jsp?evaluationID=<%=content.getcontentID()%>">비추천</a>
 
-              <a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?contentID=<%=content.getcontentID()%>">삭제</a>
+              <a onclick="return confirm('삭제하시겠습니까?')" href="./deleteAction.jsp?evaluationID=<%=content.getcontentID()%>">삭제</a>
 
             </div>
 
           </div>
-          
-          <div 	id = "comments">
-          	
-          </div>
-          
-		
 
         </div>
 
@@ -310,6 +289,7 @@
 <%
 
 	}
+}
 
 %>
 
@@ -391,29 +371,21 @@
 
           <div class="modal-body">
 
-            <form action="./contentRegisterAction.jsp" method="post">
+            <form action="./evaluationRegisterAction.jsp" method="post">
 
               <div class="form-row">
 
                 <div class="form-group col-sm-6">
 
                   <label>학생명</label>
-                  
-                  <select name="userName" class="form-control">
-           
-					<option value="<%=userID %>" selected><%=userID %></option>
-					
-					<option value="익명">익명</option>
 
-                  </select>
-                  
-                 
+                  <input type="text" name="userName" class="form-control" maxlength="20">
+
                 </div>
 
                 <div class="form-group col-sm-6">
 
                   <label>학과명</label>
-                  
 
                   <input type="text" name="className" class="form-control" maxlength="20">
 

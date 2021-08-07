@@ -2,14 +2,13 @@
 
 <%@ page import="user.UserDAO"%>
 
-<%@ page import="evaluation.EvaluationDAO"%>
+<%@ page import="content.ContentDAO"%>
 
 <%@ page import="likey.LikeyDTO"%>
 
 <%@ page import="java.io.PrintWriter"%>
 
 <%
-
 	String userID = null;
 
 	if(session.getAttribute("userID") != null) {
@@ -38,57 +37,68 @@
 
 	request.setCharacterEncoding("UTF-8");
 
-	String evaluationID = null;
+	String contentID = null;
+	System.out.println("사용자 123333333333333333333: " + request.getParameter("contentID"));
+	if(request.getParameter("contentID") != null) {
 
-	if(request.getParameter("evaluationID") != null) {
+		contentID = (String) request.getParameter("contentID");
+		System.out.println("contentID는 null이 아님");
 
-		evaluationID = (String) request.getParameter("evaluationID");
-
+	}else{
+		System.out.println("contentID는 null임");
+		contentID = (String) request.getParameter("contentID");
+		System.out.println("contentID: " + contentID);
 	}
 
-	EvaluationDAO evaluationDAO = new EvaluationDAO();
+	ContentDAO contentDAO = new ContentDAO();
 
-	if(userID.equals(evaluationDAO.getUserID(evaluationID))) {
+	if(userID.equals(contentDAO.getUserID(contentID))) {
 
-		int result = new EvaluationDAO().delete(evaluationID);
+		int result = new ContentDAO().delete(contentID);
+		
 
 		if (result == 1) {
 
 			session.setAttribute("userID", userID);
-
+		
 			PrintWriter script = response.getWriter();
-
+		
 			script.println("<script>");
-
+		
 			script.println("alert('삭제가 완료되었습니다.');");
-
+		
 			script.println("location.href='index.jsp'");
-
+		
 			script.println("</script>");
-
+		
 			script.close();
-
-			return;
-
-		} else {
+		
+			return;} 
+		else {
 
 			PrintWriter script = response.getWriter();
-
+		
 			script.println("<script>");
-
+		
 			script.println("alert('데이터베이스 오류가 발생했습니다.');");
-
+		
 			script.println("history.back();");
-
+		
 			script.println("</script>");
-
+		
 			script.close();
+		
+			return;}
 
-			return;
-
-		}
-
-	} else {
+	} 
+	
+	
+	else {
+		
+		System.out.println("삭제 오류: " + userID.equals(contentDAO.getUserID(contentID)));
+		System.out.println("사용자 contentID: " + contentID);
+		System.out.println("사용자 아이디: " + userID);
+		System.out.println("내용 아이디: " + contentDAO.getUserID(contentID));
 
 		PrintWriter script = response.getWriter();
 
@@ -100,10 +110,5 @@
 
 		script.println("</script>");
 
-		script.close();
-
-		
-
-	}
-
+		script.close();}
 %>

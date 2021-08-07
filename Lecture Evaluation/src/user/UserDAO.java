@@ -28,7 +28,7 @@ public class UserDAO {
 
 		try {
 
-			String dbURL = "jdbc:mysql://localhost:3306/tutorial?characterEncoding=UTF-8&serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/Project?characterEncoding=UTF-8&serverTimezone=UTC";
 
 			String dbID = "root";
 

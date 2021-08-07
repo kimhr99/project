@@ -24,7 +24,7 @@ public class LikeyDAO {
 
 		try {
 
-			String dbURL = "jdbc:mysql://localhost:3306/tutorial?characterEncoding=UTF-8&serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/Project?characterEncoding=UTF-8&serverTimezone=UTC";
 
 			String dbID = "root";
 
@@ -44,7 +44,7 @@ public class LikeyDAO {
 
 	
 
-	public int like(String userID, String evaluationID, String userIP) {
+	public int like(String userID, String contentID, String userIP) {
 
 		String SQL = "INSERT INTO LIKEY VALUES (?, ?, ?)";
 
@@ -54,7 +54,7 @@ public class LikeyDAO {
 
 			pstmt.setString(1, userID);
 
-			pstmt.setString(2, evaluationID);
+			pstmt.setString(2, contentID);
 
 			pstmt.setString(3, userIP);
 

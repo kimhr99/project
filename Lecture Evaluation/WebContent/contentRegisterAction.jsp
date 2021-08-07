@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="evaluation.EvaluationDTO"%>
+<%@ page import="content.ContentDTO"%>
 
-<%@ page import="evaluation.EvaluationDAO"%>
+<%@ page import="content.ContentDAO"%>
 
 <%@ page import="java.io.PrintWriter"%>
 
 <%
-
 	request.setCharacterEncoding("UTF-8");
 
 
@@ -40,51 +39,43 @@
 
 	request.setCharacterEncoding("UTF-8");
 
-	String lectureName = null;
+	String userName = null;
 
-	String professorName = null;
+	String className = null;
 
-	int lectureYear = 0;
+	int eventYear = 0;
 
 	String semesterDivide = null;
 
-	String lectureDivide = null;
+	String contentDivide = null;
 
-	String evaluationTitle = null;
+	String contentTitle = null;
 
-	String evaluationContent = null;
+	String Content = null;
 
-	String totalScore = null;
+	if(request.getParameter("userName") != null) {
 
-	String creditScore = null;
-
-	String comfortableScore = null;
-
-	String lectureScore = null;
-
-	if(request.getParameter("lectureName") != null) {
-
-		lectureName = (String) request.getParameter("lectureName");
+		userName = (String) request.getParameter("userName");
 		
 
 	}
 
-	if(request.getParameter("professorName") != null) {
+	if(request.getParameter("className") != null) {
 
-		professorName = (String) request.getParameter("professorName");
+		className = (String) request.getParameter("className");
 		
 	}
 
-	if(request.getParameter("lectureYear") != null) {
+	if(request.getParameter("eventYear") != null) {
 
 		try {
 
-			lectureYear = Integer.parseInt(request.getParameter("lectureYear"));
-			
+		eventYear = Integer.parseInt(request.getParameter("eventYear"));
+	
 
 		} catch (Exception e) {
 
-			System.out.println("강의 연도 데이터 오류");
+	System.out.println("발생 연도 데이터 오류");
 
 		}
 
@@ -97,52 +88,29 @@
 
 	}
 
-	if(request.getParameter("lectureDivide") != null) {
+	if(request.getParameter("contentDivide") != null) {
 
-		lectureDivide = (String) request.getParameter("lectureDivide");
+		contentDivide = (String) request.getParameter("contentDivide");
 		
 	}
 
-	if(request.getParameter("evaluationTitle") != null) {
+	if(request.getParameter("contentTitle") != null) {
 
-		evaluationTitle = (String) request.getParameter("evaluationTitle");
+		contentTitle = (String) request.getParameter("contentTitle");
 		
 	}
 
-	if(request.getParameter("evaluationContent") != null) {
+	if(request.getParameter("Content") != null) {
 
-		evaluationContent = (String) request.getParameter("evaluationContent");
+		Content = (String) request.getParameter("Content");
 		
 	}
 
-	if(request.getParameter("totalScore") != null) {
+	
 
-		totalScore = (String) request.getParameter("totalScore");
-		
-	}
+	if (userName == null || className == null || eventYear == 0 || semesterDivide == null ||
 
-	if(request.getParameter("creditScore") != null) {
-
-		creditScore = (String) request.getParameter("creditScore");
-	}
-
-	if(request.getParameter("comfortableScore") != null) {
-
-		comfortableScore = (String) request.getParameter("comfortableScore");
-	}
-
-	if(request.getParameter("lectureScore") != null) {
-
-		lectureScore = (String) request.getParameter("lectureScore");
-	}
-
-	if (lectureName == null || professorName == null || lectureYear == 0 || semesterDivide == null ||
-
-			lectureDivide == null || evaluationTitle == null || evaluationContent == null || totalScore == null ||
-
-			creditScore == null || comfortableScore == null || lectureScore == null ||
-
-			evaluationTitle.equals("") || evaluationContent.equals("")) {
+	contentDivide == null || contentTitle == null || Content == null || contentTitle.equals("") || Content.equals("")) {
 
 		PrintWriter script = response.getWriter();
 
@@ -160,46 +128,43 @@
 
 	} else {
 
-		EvaluationDAO evaluationDAO = new EvaluationDAO();
+		ContentDAO contentDAO = new ContentDAO();
 
-		int result = evaluationDAO.write(new EvaluationDTO(0, userID, lectureName, professorName, lectureYear,
+		int result = contentDAO.write(new ContentDTO(0, userID, userName, className, eventYear,
 
-				semesterDivide, lectureDivide, evaluationTitle, evaluationContent,
-
-				totalScore, creditScore, comfortableScore, lectureScore, 0));
+		semesterDivide, contentDivide, contentTitle, Content, 0));
 
 		if (result == -1) {
 
-			PrintWriter script = response.getWriter();
+	PrintWriter script = response.getWriter();
 
-			script.println("<script>");
+	script.println("<script>");
 
-			script.println("alert('평가 등록에 실패했습니다.');");
+	script.println("alert('평가 등록에 실패했습니다.');");
 
-			script.println("history.back();");
+	script.println("history.back();");
 
-			script.println("</script>");
+	script.println("</script>");
 
-			script.close();
+	script.close();
 
-			return;
+	return;
 
 		} else {
 
-			PrintWriter script = response.getWriter();
+	PrintWriter script = response.getWriter();
 
-			script.println("<script>");
+	script.println("<script>");
 
-			script.println("location.href = './index.jsp';");
+	script.println("location.href = './index.jsp';");
 
-			script.println("</script>");
+	script.println("</script>");
 
-			script.close();
+	script.close();
 
-			
+	
 
 		}
 
 	}
-
 %>

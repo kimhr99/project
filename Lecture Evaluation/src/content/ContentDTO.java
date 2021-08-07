@@ -1,50 +1,42 @@
-package evaluation;
+package content;
 
 
 
-public class EvaluationDTO {
+public class ContentDTO {
 
 
 
-	int evaluationID;
+	int contentID;// 내용 아이디
 
-	String userID;
+	String userID;//작성자 아이디
 
-	String lectureName;
+	String userName ;//학생이름
 
-	String professorName;
+	String className ; //학과이름
 
-	int lectureYear;
+	int eventYear ; //발생연도
 
-	String semesterDivide;
+	String semesterDivide; //발생 학기
 
-	String lectureDivide;
+	String contentDivide ; //주제 구분
 
-	String evaluationTitle;
+	String contentTitle ; //민원 제목
 
-	String evaluationContent;
-
-	String totalScore;
-
-	String creditScore;
-
-	String comfortableScore;
-
-	String lectureScore;
+	String Content; // 평가 내용
 
 	int likeCount;
 
 	
 
-	public int getEvaluationID() {
+	public int getcontentID() {
 
-		return evaluationID;
+		return contentID;
 
 	}
 
-	public void setEvaluationID(int evaluationID) {
+	public void setcontentID(int contentID) {
 
-		this.evaluationID = evaluationID;
+		this.contentID = contentID;
 
 	}
 
@@ -60,39 +52,39 @@ public class EvaluationDTO {
 
 	}
 
-	public String getLectureName() {
+	public String getuserName() {
 
-		return lectureName;
-
-	}
-
-	public void setLectureName(String lectureName) {
-
-		this.lectureName = lectureName;
+		return userName;
 
 	}
 
-	public String getProfessorName() {
+	public void setuserName(String userName) {
 
-		return professorName;
-
-	}
-
-	public void setProfessorName(String professorName) {
-
-		this.professorName = professorName;
+		this.userName = userName;
 
 	}
 
-	public int getLectureYear() {
+	public String getclassName() {
 
-		return lectureYear;
+		return className;
 
 	}
 
-	public void setLectureYear(int lectureYear) {
+	public void setclassName(String className) {
 
-		this.lectureYear = lectureYear;
+		this.className = className;
+
+	}
+
+	public int geteventYear() {
+
+		return eventYear;
+
+	}
+
+	public void seteventYear(int eventYear) {
+
+		this.eventYear = eventYear;
 
 	}
 
@@ -108,90 +100,43 @@ public class EvaluationDTO {
 
 	}
 
-	public String getLectureDivide() {
+	public String getcontentDivide() {
 
-		return lectureDivide;
-
-	}
-
-	public void setLectureDivide(String lectureDivide) {
-
-		this.lectureDivide = lectureDivide;
+		return contentDivide;
 
 	}
 
-	public String getEvaluationTitle() {
+	public void setcontentDivide(String contentDivide) {
 
-		return evaluationTitle;
-
-	}
-
-	public void setEvaluationTitle(String evaluationTitle) {
-
-		this.evaluationTitle = evaluationTitle;
+		this.contentDivide = contentDivide;
 
 	}
 
-	public String getEvaluationContent() {
+	public String getcontentTitle() {
 
-		return evaluationContent;
-
-	}
-
-	public void setEvaluationContent(String evaluationContent) {
-
-		this.evaluationContent = evaluationContent;
+		return contentTitle;
 
 	}
 
-	public String getTotalScore() {
+	public void setcontentTitle(String contentTitle) {
 
-		return totalScore;
-
-	}
-
-	public void setTotalScore(String totalScore) {
-
-		this.totalScore = totalScore;
+		this.contentTitle = contentTitle;
 
 	}
 
-	public String getCreditScore() {
+	public String getContent() {
 
-		return creditScore;
-
-	}
-
-	public void setCreditScore(String creditScore) {
-
-		this.creditScore = creditScore;
+		return Content;
 
 	}
 
-	public String getComfortableScore() {
+	public void setContent(String Content) {
 
-		return comfortableScore;
-
-	}
-
-	public void setComfortableScore(String comfortableScore) {
-
-		this.comfortableScore = comfortableScore;
+		this.Content = Content;
 
 	}
 
-	public String getLectureScore() {
-
-		return lectureScore;
-
-	}
-
-	public void setLectureScore(String lectureScore) {
-
-		this.lectureScore = lectureScore;
-
-	}
-
+	
 	public int getLikeCount() {
 
 		return likeCount;
@@ -203,48 +148,43 @@ public class EvaluationDTO {
 		this.likeCount = likeCount;
 
 	}
+	
+	public ContentDTO() {
+
+	}
 
 	
 
-	public EvaluationDTO(int evaluationID, String userID, String lectureName, String professorName, int lectureYear,
+	public ContentDTO(int contentID, String userID, String userName, String className, int eventYear,
 
-			String semesterDivide, String lectureDivide, String evaluationTitle, String evaluationContent,
+			String semesterDivide, String contentDivide, String contentTitle, String Content,
 
-			String totalScore, String creditScore, String comfortableScore, String lectureScore, int likeCount) {
+		     int likeCount) {
 
 		super();
 
-		this.evaluationID = evaluationID;
+		this.contentID = contentID;
 
 		this.userID = userID;
 
-		this.lectureName = lectureName;
+		this.userName = userName;
 
-		this.professorName = professorName;
+		this.className = className;
 
-		this.lectureYear = lectureYear;
+		this.eventYear = eventYear;
 
 		this.semesterDivide = semesterDivide;
 
-		this.lectureDivide = lectureDivide;
+		this.contentDivide = contentDivide;
 
-		this.evaluationTitle = evaluationTitle;
+		this.contentTitle = contentTitle;
 
-		this.evaluationContent = evaluationContent;
-
-		this.totalScore = totalScore;
-
-		this.creditScore = creditScore;
-
-		this.comfortableScore = comfortableScore;
-
-		this.lectureScore = lectureScore;
+		this.Content = Content;
 
 		this.likeCount = likeCount;
 
 	}
 
-	
 
 }
 

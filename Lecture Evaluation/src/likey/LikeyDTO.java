@@ -8,7 +8,7 @@ public class LikeyDTO {
 
 	String userID;
 
-	int evaluationID;
+	int contentID;
 
 	String userIP;
 
@@ -28,13 +28,13 @@ public class LikeyDTO {
 
 	public int getEvaluationID() {
 
-		return evaluationID;
+		return contentID;
 
 	}
 
 	public void setEvaluationID(int evaluationID) {
 
-		this.evaluationID = evaluationID;
+		this.contentID = evaluationID;
 
 	}
 
@@ -56,7 +56,7 @@ public class LikeyDTO {
 
 		this.userID = userID;
 
-		this.evaluationID = evaluationID;
+		this.contentID = evaluationID;
 
 		this.userIP = userIP;
 

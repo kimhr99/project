@@ -7,7 +7,7 @@
 
   <head>
 
-    <title>강의평가 웹 사이트</title>
+    <title>대구대 신문고</title>
 
     <meta charset="utf-8">
 
@@ -56,7 +56,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-      <a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
+      <a class="navbar-brand" href="index.jsp">대구대 신문고</a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
 

@@ -1,5 +1,4 @@
-package evaluation;
-
+package content;
 
 
 import java.sql.Connection;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 
 
-public class EvaluationDAO {
+public class ContentDAO {
 
 
 
@@ -23,11 +22,11 @@ public class EvaluationDAO {
 
 
 
-	public EvaluationDAO() {
+	public ContentDAO() {
 
 		try {
 
-			String dbURL = "jdbc:mysql://localhost:3306/tutorial?characterEncoding=UTF-8&serverTimezone=UTC";
+			String dbURL = "jdbc:mysql://localhost:3306/Project?characterEncoding=UTF-8&serverTimezone=UTC";
 
 			String dbID = "root"; 
 
@@ -47,40 +46,32 @@ public class EvaluationDAO {
 
 	
 
-	public int write(EvaluationDTO evaluationDTO) {
+	public int write(ContentDTO contentDTO) {
 
 		PreparedStatement pstmt = null;
 
 		try {
 
-			String SQL = "INSERT INTO EVALUATION VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
+			String SQL = "INSERT INTO CONTENT VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, 0);";
 
 			pstmt = conn.prepareStatement(SQL);
 
-			pstmt.setString(1, evaluationDTO.getUserID());
+			pstmt.setString(1, contentDTO.getUserID());
 
-			pstmt.setString(2, evaluationDTO.getLectureName());
+			pstmt.setString(2, contentDTO.getuserName());
 
-			pstmt.setString(3, evaluationDTO.getProfessorName());
+			pstmt.setString(3, contentDTO.getclassName());
 
-			pstmt.setInt(4, evaluationDTO.getLectureYear());
+			pstmt.setInt(4, contentDTO.geteventYear());
 
-			pstmt.setString(5, evaluationDTO.getSemesterDivide());
+			pstmt.setString(5, contentDTO.getSemesterDivide());
 
-			pstmt.setString(6, evaluationDTO.getLectureDivide());
+			pstmt.setString(6, contentDTO.getcontentDivide());
 
-			pstmt.setString(7, evaluationDTO.getEvaluationTitle());
+			pstmt.setString(7, contentDTO.getcontentTitle());
 
-			pstmt.setString(8, evaluationDTO.getEvaluationContent());
-
-			pstmt.setString(9, evaluationDTO.getTotalScore());
-
-			pstmt.setString(10, evaluationDTO.getCreditScore());
-
-			pstmt.setString(11, evaluationDTO.getComfortableScore());
-
-			pstmt.setString(12, evaluationDTO.getLectureScore());
-
+			pstmt.setString(8, contentDTO.getContent());
+			
 			return pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -108,15 +99,15 @@ public class EvaluationDAO {
 	}
 	
 	
-	public ArrayList<EvaluationDTO> getList(String lectureDivide, String searchType, String search, int pageNumber) {
+	public ArrayList<ContentDTO> getList(String contentDivide, String searchType, String search, int pageNumber) {
 
-		if(lectureDivide.equals("전체")) {
+		if(contentDivide.equals("전체")) {
 
-			lectureDivide = "";
+			contentDivide = "";
 
 		}
 
-		ArrayList<EvaluationDTO> evaluationList = null;
+		ArrayList<ContentDTO> contentList = null;
 
 		PreparedStatement pstmt = null;
 
@@ -126,29 +117,29 @@ public class EvaluationDAO {
 
 			if(searchType.equals("최신순")) {
 
-				SQL = "SELECT * FROM EVALUATION WHERE lectureDivide LIKE ? AND CONCAT(lectureName, professorName, evaluationTitle, evaluationContent) LIKE ? ORDER BY evaluationID DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
+				SQL = "SELECT * FROM CONTENT WHERE contentDivide LIKE ? AND CONCAT(userName, className, contentTitle, Content) LIKE ? ORDER BY contentID DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
 
 			} else if(searchType.equals("추천순")) {
 
-				SQL = "SELECT * FROM EVALUATION WHERE lectureDivide LIKE ? AND CONCAT(lectureName, professorName, evaluationTitle, evaluationContent) LIKE ? ORDER BY likeCount DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
+				SQL = "SELECT * FROM CONTENT WHERE contentDivide LIKE ? AND CONCAT(userName, className, contentTitle, Content) LIKE ? ORDER BY likeCount DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
 
 			}
 
 			pstmt = conn.prepareStatement(SQL);
 
-			pstmt.setString(1, "%" + lectureDivide + "%");
+			pstmt.setString(1, "%" + contentDivide + "%");
 
 			pstmt.setString(2, "%" + search + "%");
 
 			rs = pstmt.executeQuery();
 
-			evaluationList = new ArrayList<EvaluationDTO>();
+			contentList = new ArrayList<ContentDTO>();
 
 			while(rs.next()) {
 
-				EvaluationDTO evaluation = new EvaluationDTO(
+				ContentDTO content = new ContentDTO(
 
-					rs.getInt(1),
+					rs.getInt(1),	
 
 					rs.getString(2),
 
@@ -166,19 +157,10 @@ public class EvaluationDAO {
 
 					rs.getString(9),
 
-					rs.getString(10),
+					rs.getInt(10)
+					);
 
-					rs.getString(11),
-
-					rs.getString(12),
-
-					rs.getString(13),
-
-					rs.getInt(14)
-
-				);
-
-				evaluationList.add(evaluation);
+				contentList.add(content);
 
 			}
 
@@ -204,21 +186,23 @@ public class EvaluationDAO {
 
 		}
 
-		return evaluationList;
+		return contentList;
 
 	}
+	
+	
 
-	public int like(String evaluationID) {
+	public int like(String contentID) {
 
 		PreparedStatement pstmt = null;
 
 		try {
 
-			String SQL = "UPDATE EVALUATION SET likeCount = likeCount + 1 WHERE evaluationID = ?";
+			String SQL = "UPDATE CONTENT SET likeCount = likeCount + 1 WHERE contentID = ?";
 
 			pstmt = conn.prepareStatement(SQL);
 
-			pstmt.setInt(1, Integer.parseInt(evaluationID));
+			pstmt.setInt(1, Integer.parseInt(contentID));
 
 			return pstmt.executeUpdate();
 
@@ -248,17 +232,17 @@ public class EvaluationDAO {
 
 	
 
-	public int delete(String evaluationID) {
+	public int delete(String contentID) {
 
 		PreparedStatement pstmt = null;
 
 		try {
 
-			String SQL = "DELETE FROM EVALUATION WHERE evaluationID = ?";
+			String SQL = "DELETE FROM CONTENT WHERE contentID = ?";
 
 			pstmt = conn.prepareStatement(SQL);
 
-			pstmt.setInt(1, Integer.parseInt(evaluationID));
+			pstmt.setInt(1, Integer.parseInt(contentID));
 
 			return pstmt.executeUpdate();
 
@@ -288,17 +272,17 @@ public class EvaluationDAO {
 
 	
 
-	public String getUserID(String evaluationID) {
+	public String getUserID(String contentID) {
 
 		PreparedStatement pstmt = null;
 
 		try {
-
-			String SQL = "SELECT userID FROM EVALUATION WHERE evaluationID = ?";
+			System.out.println(contentID);
+			String SQL = "SELECT userID FROM CONTENT WHERE contentID = ?";
 
 			pstmt = conn.prepareStatement(SQL);
 
-			pstmt.setInt(1, Integer.parseInt(evaluationID));
+			pstmt.setInt(1, Integer.parseInt(contentID));
 
 			rs = pstmt.executeQuery();
 

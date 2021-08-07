@@ -66,27 +66,26 @@
 
 	request.setCharacterEncoding("UTF-8");
 
-	String contentID = null;
+	String evaluationID = null;
 
-	if(request.getParameter("contentID") != null) {
+	if(request.getParameter("evaluationID") != null) {
 
-		contentID = (String) request.getParameter("contentID");
+		evaluationID = (String) request.getParameter("evaluationID");
 
 	}
 
-	ContentDAO contentDAO = new ContentDAO();
+	ContentDAO evaluationDAO = new ContentDAO();
 	
-	ContentDTO contentDTO = new ContentDTO(); // DTO객체 선언하기
-	
+
 	LikeyDAO likeyDAO = new LikeyDAO();
 	
 	
 
-	int result = likeyDAO.like(userID, contentID, getClientIP(request));
+	int result = likeyDAO.like(userID, evaluationID, getClientIP(request));
 
 	if (result == 1) {
 
-		result = contentDAO.like(contentID);
+		result = evaluationDAO.like(evaluationID);
 
 		if (result == 1) {
 
@@ -94,7 +93,7 @@
 
 	script.println("<script>");
 
-	script.println("alert('추천이 완료되었습니다.');");
+	script.println("alert('비추천이 완료되었습니다.');");
 	
 	script.println("location.href='index.jsp'");
 
@@ -102,6 +101,7 @@
 
 	script.close();
 	
+		
 	return;
 
 		} else {
@@ -128,7 +128,7 @@
 
 		script.println("<script>");
 
-		script.println("alert('이미 추천을 누른 글입니다.');");
+		script.println("alert('이미 비추천을 누른 글입니다.');");
 
 		script.println("history.back();");
 
